@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@theme {
+  --font-display: "playfair display", serif;
+  --primary-orange: "#F57A21";
+  --dark-slate: "#0F1115";
+  --soft-warm-white: "#F5F2EE";
+  --gold-accent: "#C6A667";
+  --deep-charcoal: "#1A1C20";
+  --muted-sand: "#D5C7B2";
+}
