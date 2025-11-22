@@ -1,10 +1,12 @@
 import { ApiResponse } from "../api/response/response";
+import { DateRange } from "../booking/types";
 
 type Hotel = {
   hotelId: number;
   name: string;
   location: string;
   description: string;
+  rooms: Room[];
   maxGuests: number;
   pricePerNight: number;
   amenities: string[];
@@ -43,6 +45,14 @@ type BookingConfirmation = {
   checkOut: Date;
 };
 
+type FilterOptions = {
+  name?: string;
+  location?: string;
+  guestCount?: number;
+  dateRange?: DateRange;
+  minRating?: number;
+};
+
 type HotelSearchResponse = ApiResponse<Hotel[]>;
 type RoomAvailabilityResponse = ApiResponse<Room[]>;
 type BookingConfirmationResponse = ApiResponse<BookingConfirmation>;
@@ -56,4 +66,5 @@ export type {
   HotelSearchResponse,
   RoomAvailabilityResponse,
   BookingConfirmationResponse,
+  FilterOptions,
 };
