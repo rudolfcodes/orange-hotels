@@ -15,6 +15,17 @@ type Hotel = {
   currency: "EUR" | "AUD";
 };
 
+type HotelCard = {
+  hotelId: number;
+  title: string;
+  featuredImage: string;
+  description: string;
+  location: string;
+  pricePerNight: number;
+  rating: number;
+  currency: "EUR" | "AUD";
+};
+
 type Room = {
   id: number;
   hotelId: number;
@@ -59,6 +70,7 @@ type BookingConfirmationResponse = ApiResponse<BookingConfirmation>;
 
 export type {
   Hotel,
+  HotelCard,
   Room,
   AvailableHotelsResponse,
   AvailableRoomsResponse,
