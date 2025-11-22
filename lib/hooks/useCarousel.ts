@@ -41,16 +41,20 @@ const useCarousel = (totalSlides: number, autoAdvanceInterval = 3000) => {
     [totalSlides]
   );
 
-  const autoAdvance = () => {
+  // useCallback to memoize autoAdvance function to prevent the functions from being recreated on every render
+  const autoAdvance = useCallback(() => {
+    if (intervalRef.current !== undefined) {
+      clearInterval(intervalRef.current);
+    }
     intervalRef.current = window.setInterval(goToNext, autoAdvanceInterval);
-  };
+  }, [goToNext, autoAdvanceInterval]);
 
-  const stopAutoAdvance = () => {
+  const stopAutoAdvance = useCallback(() => {
     if (intervalRef.current !== undefined) {
       clearInterval(intervalRef.current);
       intervalRef.current = undefined;
     }
-  };
+  }, []);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyPress);
