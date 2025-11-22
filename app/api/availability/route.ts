@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
 
     // Mock availability logic
     const results: BookingSearchResult[] = hotelData.map((hotel) => ({
-      hotelId: hotel.id.toString(),
+      hotelId: hotel.id,
       hotelName: hotel.name,
       isAvailable: Math.random() > 0.5,
       pricePerNight: 100 + Math.floor(Math.random() * 200),
