@@ -18,3 +18,13 @@ type Room = {
   hasBreakfast: boolean;
   isAvailable: (checkIn: Date, checkOut: Date) => boolean;
 };
+
+type AvailableHotelsResponse = {
+  hotels: Hotel[];
+};
+
+type AvailableRoomsResponse = Pick<Hotel, "id" | "name"> & {
+  rooms: Room[];
+};
+
+export type { Hotel, Room, AvailableHotelsResponse, AvailableRoomsResponse };
