@@ -4,3 +4,5 @@ type ApiResponse<T> = {
   error?: string;
   message?: string;
 };
+
+export type { ApiResponse };
