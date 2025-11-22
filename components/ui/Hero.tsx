@@ -5,12 +5,21 @@ import HeroCarousel from "../carousel/HeroCarousel";
 
 const Hero = () => {
   return (
-    <div className="h-screen w-full relative flex flex-col justify-center items-center bg-gray-200">
-      <h1>Welcome to Orange Hotels</h1>
+    <div className="h-screen w-full absolute overflow-hidden flex flex-col max-h-[600px]">
+      {/* put a wrapper on top that ALIGNS everything with the logo */}
       <HeroCarousel />
-      <BaseButton onClick={() => alert("Booking now!")}>
-        <span>Book Your Stay Now</span>
-      </BaseButton>
+      <div className="max-w-5xl w-full mx-auto h-full relative flex flex-wrap flex-col justify-center px-4 pointer-events-none">
+        <h1 className="transform z-10 text-4xl md:text-6xl font-bold text-white drop-shadow-lg max-w-lg">
+          Welcome to Orange Hotels
+        </h1>
+        {/* button needs to be UNDER h1 */}
+        <BaseButton
+          className="pointer-events-auto"
+          onClick={() => alert("Booking now!")}
+        >
+          Book Your Stay Now
+        </BaseButton>
+      </div>
     </div>
   );
 };
