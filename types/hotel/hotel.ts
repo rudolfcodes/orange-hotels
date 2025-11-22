@@ -1,6 +1,13 @@
 import { ApiResponse } from "../api/response/response";
 import { DateRange } from "../booking/types";
 
+type StarRating = 1 | 2 | 3 | 4 | 5;
+
+type Rating = {
+  userId: number;
+  starRating: StarRating;
+};
+
 type Hotel = {
   hotelId: number;
   name: string;
@@ -10,7 +17,8 @@ type Hotel = {
   maxGuests: number;
   pricePerNight: number;
   amenities: string[];
-  starRating: 1 | 2 | 3 | 4 | 5;
+  starRating: StarRating;
+  reviews: Rating[];
   images: string[];
   currency: "EUR" | "AUD";
 };
