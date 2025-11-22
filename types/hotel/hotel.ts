@@ -1,9 +1,15 @@
+import { ApiResponse } from "../api/response/response";
+
 type Hotel = {
-  id: number;
+  hotelId: number;
   name: string;
   location: string;
+  description: string;
   maxGuests: number;
   pricePerNight: number;
+  amenities: string[];
+  starRating: 1 | 2 | 3 | 4 | 5;
+  images: string[];
   currency: "EUR" | "AUD";
 };
 
@@ -23,8 +29,31 @@ type AvailableHotelsResponse = {
   hotels: Hotel[];
 };
 
-type AvailableRoomsResponse = Pick<Hotel, "id" | "name"> & {
+type AvailableRoomsResponse = Pick<Hotel, "hotelId" | "name"> & {
   rooms: Room[];
 };
 
-export type { Hotel, Room, AvailableHotelsResponse, AvailableRoomsResponse };
+type BookingConfirmation = {
+  bookingId: string;
+  hotelId: number;
+  totalPrice: number;
+  roomType: string;
+  currency: "EUR" | "AUD";
+  checkIn: Date;
+  checkOut: Date;
+};
+
+type HotelSearchResponse = ApiResponse<Hotel[]>;
+type RoomAvailabilityResponse = ApiResponse<Room[]>;
+type BookingConfirmationResponse = ApiResponse<BookingConfirmation>;
+
+export type {
+  Hotel,
+  Room,
+  AvailableHotelsResponse,
+  AvailableRoomsResponse,
+  BookingConfirmation,
+  HotelSearchResponse,
+  RoomAvailabilityResponse,
+  BookingConfirmationResponse,
+};
