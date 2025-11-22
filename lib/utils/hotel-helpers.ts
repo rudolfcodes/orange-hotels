@@ -1,3 +1,4 @@
+import { GuestCount } from "@/types/booking/types";
 import { Hotel, HotelCard } from "@/types/hotel/hotel";
 
 // Format hotels to card structure to render hotel data in cards
@@ -17,4 +18,53 @@ const formatHotelsForCards = (hotels: Hotel[]): HotelCard[] => {
   }));
 };
 
-export { formatHotelsForCards };
+const getGuestTotal = (guestCount: GuestCount) => {
+  const { adults, children } = guestCount;
+  return [adults, children].reduce((acc, curr) => acc + curr, 0);
+};
+
+const findCheapestHotel = (hotels: Hotel[]): Hotel | undefined => {
+  if (!hotels.length) return undefined;
+
+  return hotels.reduce((cheapest, current) => {
+    return current.pricePerNight < cheapest.pricePerNight ? current : cheapest;
+  });
+};
+
+const getAverageHotelRating = (hotel: Hotel): number => {
+  const sum = hotel.reviews.reduce((sum, current) => {
+    return sum + current.starRating;
+  }, 0);
+
+  return sum / hotel.reviews.length;
+};
+
+const getAverageHotelPrice = (hotels: Hotel[]): number => {
+  if (!hotels.length) return 0;
+
+  const sum = hotels.reduce((acc, current) => {
+    return acc + current.pricePerNight;
+  }, 0);
+
+  return sum / hotels.length;
+};
+
+const sortHotelsByPrice = (
+  hotels: Hotel[],
+  ascending: boolean = true
+): Hotel[] => {
+  return [...hotels].sort((hotelA, hotelB) =>
+    ascending
+      ? hotelA.pricePerNight - hotelB.pricePerNight
+      : hotelB.pricePerNight - hotelA.pricePerNight
+  );
+};
+
+export {
+  formatHotelsForCards,
+  getGuestTotal,
+  findCheapestHotel,
+  getAverageHotelRating,
+  getAverageHotelPrice,
+  sortHotelsByPrice,
+};
