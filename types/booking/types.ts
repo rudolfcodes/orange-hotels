@@ -1,6 +1,7 @@
 type GuestCount = {
   adults: number;
   children: number;
+  childAges?: number[];
 };
 
 type DateRange = {
@@ -11,10 +12,13 @@ type DateRange = {
 type BookingSearchInput = {
   guestCount: GuestCount;
   dateRange: DateRange;
+  roomCount?: number;
+  location?: string;
+  hotelName?: string;
 };
 
 type BookingSearchResult = {
-  hotelId: string;
+  hotelId: number;
   hotelName: string;
   isAvailable: boolean;
   pricePerNight: number;
