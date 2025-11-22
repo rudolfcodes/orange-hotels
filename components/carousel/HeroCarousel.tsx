@@ -9,6 +9,7 @@ import useCarousel from "@/lib/hooks/useCarousel";
 import Image from "next/image";
 import BaseButton from "../buttons/BaseButton";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const HeroCarousel = () => {
   const { currentIndex, goToNext, goToPrevious, autoAdvance, stopAutoAdvance } =
@@ -20,6 +21,8 @@ const HeroCarousel = () => {
       stopAutoAdvance();
     };
   }, []);
+
+  const router = useRouter();
 
   // There will be visually hidden text for screen readers indicating current slide
   return (
@@ -56,6 +59,18 @@ const HeroCarousel = () => {
               aria-roledescription="slide"
               aria-label={`Slide ${index + 1} of ${slides.length}`}
             />
+
+            <div className="max-w-5xl w-full mx-auto h-full relative flex flex-wrap flex-col justify-center px-4 pointer-events-none">
+              <h1 className="transform z-10 text-4xl md:text-6xl font-bold text-white drop-shadow-lg max-w-lg">
+                {slide.title}
+              </h1>
+              <BaseButton
+                className="pointer-events-auto"
+                onClick={() => router.push(slide.cta.link)}
+              >
+                {slide.cta.text}
+              </BaseButton>
+            </div>
           </div>
         ))}
       </div>
