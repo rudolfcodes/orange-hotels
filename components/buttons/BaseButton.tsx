@@ -1,11 +1,17 @@
 interface BaseButtonProps {
+  type?: "button" | "submit" | "reset";
   onClick: () => void;
   children?: React.ReactNode;
   className?: string;
 }
 
-const BaseButton = ({ children, onClick, className }: BaseButtonProps) => (
-  <button onClick={onClick} className={className}>
+const BaseButton = ({
+  children,
+  type = "button",
+  onClick,
+  className,
+}: BaseButtonProps) => (
+  <button type={type} onClick={onClick} className={className}>
     {children}
   </button>
 );
