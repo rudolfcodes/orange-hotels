@@ -9,6 +9,13 @@ type DateRange = {
   checkOut: Date | null;
 };
 
+type FormData = {
+  hotelName: string;
+  guestCount: number;
+  rating: number;
+  dateRange: DateRange;
+};
+
 type BookingSearchInput = {
   guestCount: GuestCount;
   dateRange: DateRange;
@@ -25,4 +32,10 @@ type BookingSearchResult = {
   currency: "EUR" | "AUD";
 };
 
-export type { GuestCount, DateRange, BookingSearchInput, BookingSearchResult };
+export type {
+  GuestCount,
+  DateRange,
+  BookingSearchInput,
+  BookingSearchResult,
+  FormData,
+};
