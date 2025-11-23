@@ -60,6 +60,19 @@ const sortHotelsByPrice = (
   );
 };
 
+const sortHotelsByName = (
+  hotels: Hotel[],
+  ascending: boolean = true
+): Hotel[] => {
+  return [...hotels].sort((hotelA, hotelB) => {
+    if (ascending) {
+      return hotelA.name.localeCompare(hotelB.name);
+    } else {
+      return hotelB.name.localeCompare(hotelA.name);
+    }
+  });
+};
+
 export {
   formatHotelsForCards,
   getGuestTotal,
@@ -67,4 +80,5 @@ export {
   getAverageHotelRating,
   getAverageHotelPrice,
   sortHotelsByPrice,
+  sortHotelsByName,
 };
