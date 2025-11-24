@@ -2,7 +2,7 @@ import { footerMenu } from "@/lib/menu";
 
 const Footer = () => {
   return (
-    <footer id="footer">
+    <footer id="footer" className="bg-dark-slate text-white w-full mt-16">
       <ul className="flex flex-wrap list-style-none justify-center gap-8 p-8">
         {footerMenu.map((column) => (
           <li key={column.title} className="min-w-[150px]">
