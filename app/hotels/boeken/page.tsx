@@ -81,8 +81,6 @@ export default function BoekenPage() {
     ? formatHotelsForCards(hotels)
     : [];
 
-  console.log({ hotels, formattedHotels });
-
   if (!searchData && isLoading) {
     return <div>Wij vinden de beschikbare hotels...</div>;
   }
