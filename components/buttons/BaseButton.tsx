@@ -17,7 +17,7 @@ const BaseButton = ({
     type={type}
     onClick={onClick}
     disabled={disabled}
-    className={className}
+    className={`cursor-pointer disabled:cursor-not-allowed ${className}`}
   >
     {children}
   </button>

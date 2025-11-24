@@ -9,6 +9,7 @@ type InputProps = {
   required?: boolean;
   min?: number;
   max?: number;
+  className?: string;
 };
 
 const Input = ({
@@ -21,9 +22,12 @@ const Input = ({
   required,
   min,
   max,
+  className,
 }: InputProps) => {
   return (
-    <div className="custom-input-field-wrapper flex-1 border-r border-gray-200 p-4">
+    <div
+      className={`custom-input-field-wrapper flex-1 border-r border-gray-200 p-4 ${className}`}
+    >
       <label className="custom-input-label text-sm text-gray-600 mb-1 block">
         {label}
       </label>
