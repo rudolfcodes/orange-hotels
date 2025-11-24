@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Booking form component for Orange Hotels
  * @returns {JSX.Element} The booking form element
@@ -8,7 +10,7 @@
  *  - Date Range
  */
 
-import { ChangeEvent, useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../Input";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -26,15 +28,15 @@ const AvailabilityForm = () => {
     dateRange: { checkIn: null, checkOut: null },
   });
   const [error, setError] = useState<string | null>(null);
+  const [readyToSubmit, setReadyToSubmit] = useState(false);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]:
-        name === "guestCount" || name === "rating" ? Number(value) : value,
-    }));
-  };
+  useEffect(() => {
+    setReadyToSubmit(
+      formData.hotelName.trim() !== "" &&
+        hasValidDateRange(formData.dateRange) &&
+        hasAtLeastOneGuest(formData.guestCount)
+    );
+  }, [formData]);
 
   const handleSubmit = async (e?: React.FormEvent<HTMLButtonElement>) => {
     e?.preventDefault();
@@ -63,12 +65,17 @@ const AvailabilityForm = () => {
   };
 
   return (
-    <form className="booking-form">
+    <form className="booking-form flex gap-0 bg-white shadow-lg rounded-lg max-w-6xl mt-[-75px] mx-auto relative z-10">
       <Input
         label="Hotel Name"
         name="hotelName"
         type="text"
-        onChange={handleInputChange}
+        onChange={(e) => {
+          setFormData((prev) => ({
+            ...prev,
+            hotelName: e.target.value,
+          }));
+        }}
         placeholder="Search by name or location..."
         value={formData.hotelName}
         error={error}
@@ -79,8 +86,13 @@ const AvailabilityForm = () => {
         label="Guest Count"
         name="guestCount"
         type="number"
-        onChange={handleInputChange}
-        value={formData.guestCount.toString()}
+        onChange={(e) => {
+          setFormData((prev) => ({
+            ...prev,
+            guestCount: { ...prev.guestCount, adults: Number(e.target.value) },
+          }));
+        }}
+        value={formData.guestCount.adults.toString()}
         error={error}
         required
       />
@@ -89,13 +101,22 @@ const AvailabilityForm = () => {
         label="Hotel Rating"
         name="rating"
         type="number"
-        onChange={handleInputChange}
+        className="min-w-30"
+        onChange={(e) => {
+          setFormData((prev) => ({
+            ...prev,
+            rating: Number(e.target.value),
+          }));
+        }}
+        min={1}
+        max={5}
         value={formData.rating.toString()}
         error={error}
         required
       />
 
       <DatePicker
+        className="flex-1 border-r border-gray-200 p-4 min-h-20"
         selectsRange
         startDate={formData.dateRange.checkIn}
         endDate={formData.dateRange.checkOut}
@@ -112,9 +133,11 @@ const AvailabilityForm = () => {
 
       <BaseButton
         type="submit"
-        className="mt-4 w-full"
+        className={`w-full bg-primary-orange text-white px-4 rounded hover:bg-secondary-orange transition-colors ${
+          readyToSubmit ? "" : "opacity-50 cursor-not-allowed"
+        }`}
         onClick={handleSubmit}
-        disabled={!!error}
+        disabled={!!error || !readyToSubmit}
       >
         Hotels zoeken
       </BaseButton>
