@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { BookingSearchInput } from "../../../types/booking/types";
 import {
   hasValidDateRange,
   hasAtLeastOneGuest,
@@ -11,38 +10,37 @@ import { Hotel } from "@/types/hotel/hotel";
 
 export async function GET(request: NextRequest) {
   try {
-    // Parse request body
-    const body: BookingSearchInput = await request.json();
     const searchParams = request.nextUrl.searchParams;
     const checkIn = searchParams.get("checkIn");
     const checkOut = searchParams.get("checkOut");
     const adults = searchParams.get("adults");
     const children = searchParams.get("children");
     const hotelName = searchParams.get("hotelName");
-    const minRating = searchParams.get("minRating");
+    const rating = searchParams.get("rating");
 
-    if (!hasValidDateRange(body.dateRange)) {
+    const dateRange = {
+      checkIn: checkIn ? new Date(checkIn) : null,
+      checkOut: checkOut ? new Date(checkOut) : null,
+    };
+
+    if (!hasValidDateRange(dateRange)) {
       return NextResponse.json(
         { error: "Invalid date range" },
         { status: 400 }
       );
     }
 
-    if (!hasAtLeastOneGuest(body.guestCount)) {
+    const guestCount = {
+      adults: adults ? parseInt(adults) : 0,
+      children: children ? parseInt(children) : 0,
+    };
+
+    if (!hasAtLeastOneGuest(guestCount)) {
       return NextResponse.json(
         { error: "At least one guest required" },
         { status: 400 }
       );
     }
-
-    // Mock availability logic
-    /* const results: BookingSearchResult[] = hotelData.map((hotel) => ({
-      hotelId: hotel.hotelId,
-      hotelName: hotel.name,
-      isAvailable: Math.random() > 0.5,
-      pricePerNight: 100 + Math.floor(Math.random() * 200),
-      currency: "EUR" as const, // Set currency as the exact literal type "EUR"
-    })); */
 
     const realResults: Hotel[] = filterHotels(hotelData, {
       name: hotelName || undefined,
@@ -54,7 +52,7 @@ export async function GET(request: NextRequest) {
         checkIn: checkIn ? new Date(checkIn) : null,
         checkOut: checkOut ? new Date(checkOut) : null,
       },
-      minRating: minRating ? parseFloat(minRating) : undefined,
+      minRating: rating ? parseFloat(rating) : undefined,
     });
 
     return NextResponse.json(realResults, { status: 200 });
