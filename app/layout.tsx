@@ -10,7 +10,7 @@ const playfairDisplay = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "Orange Hotels",
-  description: "Your comfort is our priority at Orange Hotels.",
+  description: "Waan je in een oase van comfort en luxe bij Orange Hotels.",
 };
 
 export default function RootLayout({
