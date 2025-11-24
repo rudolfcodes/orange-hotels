@@ -8,7 +8,9 @@ export default function Home() {
     <main className="flex min-h-screen flex-col bg-linear-to-br from-transparent to-primary-orange items-center justify-between">
       <Header />
       <Hero />
-      <AvailabilityForm />
+      <div className="w-full px-6 lg:px-0">
+        <AvailabilityForm />
+      </div>
       <Footer />
     </main>
   );
