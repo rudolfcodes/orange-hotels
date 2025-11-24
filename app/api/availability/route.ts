@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import {
-  BookingSearchInput,
-  BookingSearchResult,
-} from "../../../types/booking/types";
+import { BookingSearchInput } from "../../../types/booking/types";
 import {
   hasValidDateRange,
   hasAtLeastOneGuest,
