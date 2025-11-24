@@ -21,7 +21,7 @@ const AvailabilityForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     hotelName: "",
-    guestCount: 1,
+    guestCount: { adults: 0, children: 0 },
     rating: 0,
     dateRange: { checkIn: null, checkOut: null },
   });
@@ -48,7 +48,7 @@ const AvailabilityForm = () => {
       setError("Please select a valid date range.");
       return;
     }
-    if (!hasAtLeastOneGuest({ adults: formData.guestCount, children: 0 })) {
+    if (!hasAtLeastOneGuest(formData.guestCount)) {
       setError("At least one guest is required.");
       return;
     }
