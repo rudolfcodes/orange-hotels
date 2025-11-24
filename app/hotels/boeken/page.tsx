@@ -89,19 +89,19 @@ export default function BoekenPage() {
 
   if (isError) {
     setError(fetchError instanceof Error ? fetchError.message : "");
-    console.log({ fetchError });
-    console.log({ searchData });
     return (
       <div>Er is een fout opgetreden bij het ophalen van de hotelgegevens.</div>
     );
   }
 
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col h-screen bg-linear-to-br from-transparent to-primary-orange gap-10">
       <Header />
       <div className="grow">
-        <h1>{formattedHotels.length} Hotels gevonden.</h1>
-        <div className="flex flex-col gap-4 mt-4">
+        <h1 className="max-w-5xl mx-auto">
+          {formattedHotels.length} Hotels gevonden.
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 max-w-5xl mx-auto">
           {formattedHotels.map((hotel: HotelCardProps) => (
             <HotelCard key={hotel.hotelId} {...hotel} />
           ))}
