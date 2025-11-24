@@ -1,6 +1,8 @@
 "use client";
 
 import HotelCard from "@/components/ui/cards/HotelCard";
+import Footer from "@/components/ui/Footer";
+import Header from "@/components/ui/Header";
 import { formatHotelsForCards } from "@/lib/utils/hotel-helpers";
 import { FormData } from "@/types/booking/types";
 import { HotelCard as HotelCardProps } from "@/types/hotel/hotel";
@@ -44,6 +46,7 @@ const fetchHotels = async (searchData: FormData) => {
 
 export default function BoekenPage() {
   const [searchData, setSearchData] = useState<FormData | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -52,13 +55,22 @@ export default function BoekenPage() {
       router.push("/");
       return;
     }
-    setSearchData(JSON.parse(stored));
+    const parsed = JSON.parse(stored);
+    // Convert string dates back to Date objects
+    if (parsed.dateRange.checkIn) {
+      parsed.dateRange.checkIn = new Date(parsed.dateRange.checkIn);
+    }
+    if (parsed.dateRange.checkOut) {
+      parsed.dateRange.checkOut = new Date(parsed.dateRange.checkOut);
+    }
+    setSearchData(parsed);
   }, [router]);
 
   const {
     data: hotels,
     isLoading,
     isError,
+    error: fetchError,
   } = useQuery({
     queryKey: ["hotels", searchData],
     queryFn: () => fetchHotels(searchData as FormData),
@@ -69,11 +81,16 @@ export default function BoekenPage() {
     ? formatHotelsForCards(hotels)
     : [];
 
+  console.log({ hotels, formattedHotels });
+
   if (!searchData && isLoading) {
     return <div>Wij vinden de beschikbare hotels...</div>;
   }
 
   if (isError) {
+    setError(fetchError instanceof Error ? fetchError.message : "");
+    console.log({ fetchError });
+    console.log({ searchData });
     return (
       <div>Er is een fout opgetreden bij het ophalen van de hotelgegevens.</div>
     );
@@ -81,15 +98,19 @@ export default function BoekenPage() {
 
   return (
     <main className="flex flex-col">
-      <h1>{formattedHotels.length} Hotels gevonden.</h1>
-      <div className="flex flex-col gap-4 mt-4">
-        {formattedHotels.map((hotel: HotelCardProps) => (
-          <HotelCard key={hotel.hotelId} {...hotel} />
-        ))}
+      <Header />
+      <div className="grow">
+        <h1>{formattedHotels.length} Hotels gevonden.</h1>
+        <div className="flex flex-col gap-4 mt-4">
+          {formattedHotels.map((hotel: HotelCardProps) => (
+            <HotelCard key={hotel.hotelId} {...hotel} />
+          ))}
+        </div>
+        {formattedHotels.length === 0 && (
+          <div>Geen hotels gevonden die aan uw criteria voldoen.</div>
+        )}
       </div>
-      {formattedHotels.length === 0 && (
-        <div>Geen hotels gevonden die aan uw criteria voldoen.</div>
-      )}
+      <Footer />
     </main>
   );
 }
