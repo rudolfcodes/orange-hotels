@@ -1,5 +1,6 @@
 "use client";
 
+import BaseButton from "@/components/buttons/BaseButton";
 import HotelCard from "@/components/ui/cards/HotelCard";
 import Footer from "@/components/ui/Footer";
 import Header from "@/components/ui/Header";
@@ -95,17 +96,28 @@ export default function BoekenPage() {
   return (
     <main className="flex flex-col h-screen bg-linear-to-br from-transparent to-primary-orange gap-10">
       <Header />
-      <div className="grow">
-        <h1 className="max-w-5xl mx-auto">
-          {formattedHotels.length} Hotels gevonden.
+      <div className="grow flex flex-col justify-center items-center">
+        <h1 className="max-w-5xl px-4 mx-auto font-bold text-2xl">
+          {formattedHotels.length} Hotel
+          {formattedHotels.length !== 1 ? "s" : ""} gevonden.
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 mt-4 max-w-5xl mx-auto">
           {formattedHotels.map((hotel: HotelCardProps) => (
             <HotelCard key={hotel.hotelId} {...hotel} />
           ))}
         </div>
         {formattedHotels.length === 0 && (
-          <div>Geen hotels gevonden die aan uw criteria voldoen.</div>
+          <div className="flex flex-col gap-4 items-center">
+            <div className="font-bold text-2xl">
+              Geen hotels gevonden die aan uw criteria voldoen.
+            </div>
+            <BaseButton
+              className="bg-white p-4 rounded hover:bg-darker-orange hover:text-white transition-colors"
+              onClick={() => router.push("/")}
+            >
+              Terug naar zoeken
+            </BaseButton>
+          </div>
         )}
       </div>
       <Footer />
