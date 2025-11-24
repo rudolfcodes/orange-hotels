@@ -10,7 +10,7 @@ import {
 } from "../../../types/booking/guards";
 import { hotelData } from "../hotels/hotels-data";
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     // Parse request body
     const body: BookingSearchInput = await request.json();
