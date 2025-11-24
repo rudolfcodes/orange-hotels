@@ -29,7 +29,7 @@ const HotelCard = ({
       <p className="text-soft-warm-white mt-2 flex-1">{description}</p>
       <div className="mt-4 flex items-center justify-between">
         <span className="text-lg font-semibold text-soft-warm-white">
-          {currency} {pricePerNight} / night
+          {currency} {pricePerNight} / nacht
         </span>
         <span className="bg-orange-500 text-soft-warm-white px-2 py-1 rounded">
           {rating} ★
