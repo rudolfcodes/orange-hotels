@@ -1,5 +1,6 @@
-import { DateRange } from "@/types/booking/types";
+import { DateRange, GuestCount } from "@/types/booking/types";
 import { FilterOptions, Hotel } from "@/types/hotel/hotel";
+import { getGuestTotal } from "./hotel-helpers";
 
 const filterHotelsByName = (name: string, hotels: Hotel[]) => {
   return hotels.filter((hotel) =>
@@ -7,8 +8,9 @@ const filterHotelsByName = (name: string, hotels: Hotel[]) => {
   );
 };
 
-const filterHotelsByGuestCount = (guestCount: number, hotels: Hotel[]) => {
-  return hotels.filter((hotel) => hotel.maxGuests >= guestCount);
+const filterHotelsByGuestCount = (guestCount: GuestCount, hotels: Hotel[]) => {
+  const totalGuests = getGuestTotal(guestCount);
+  return hotels.filter((hotel) => hotel.maxGuests >= totalGuests);
 };
 
 const filterHotelsByRating = (rating: number, hotels: Hotel[]) => {
