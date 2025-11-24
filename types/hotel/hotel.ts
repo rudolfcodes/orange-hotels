@@ -1,5 +1,5 @@
 import { ApiResponse } from "../api/response/response";
-import { DateRange } from "../booking/types";
+import { DateRange, GuestCount } from "../booking/types";
 
 type StarRating = 1 | 2 | 3 | 4 | 5;
 
@@ -67,7 +67,7 @@ type BookingConfirmation = {
 type FilterOptions = {
   name?: string;
   location?: string;
-  guestCount?: number;
+  guestCount?: GuestCount;
   dateRange?: DateRange;
   minRating?: number;
 };
