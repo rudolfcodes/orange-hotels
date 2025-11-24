@@ -65,8 +65,9 @@ const AvailabilityForm = () => {
   };
 
   return (
-    <form className="booking-form flex gap-0 bg-white shadow-lg rounded-lg max-w-6xl mt-[-75px] mx-auto relative z-10">
+    <form className="booking-form w-full lg:w-fit flex flex-col lg:flex-row gap-0 bg-white shadow-lg rounded-lg max-w-6xl mt-[-75px] lg:mx-auto relative z-10">
       <Input
+        className="border-b lg:border-b-0"
         label="Hotel Name"
         name="hotelName"
         type="text"
@@ -83,6 +84,7 @@ const AvailabilityForm = () => {
       />
 
       <Input
+        className="border-b lg:border-b-0"
         label="Guest Count"
         name="guestCount"
         type="number"
@@ -98,10 +100,10 @@ const AvailabilityForm = () => {
       />
 
       <Input
+        className="border-b lg:border-b-0 min-w-30"
         label="Hotel Rating"
         name="rating"
         type="number"
-        className="min-w-30"
         onChange={(e) => {
           setFormData((prev) => ({
             ...prev,
@@ -116,7 +118,7 @@ const AvailabilityForm = () => {
       />
 
       <DatePicker
-        className="flex-1 border-r border-gray-200 p-4 min-h-20"
+        className="flex-1 w-full border-r lg:border-b-0 border-gray-200 p-4 min-h-20 outline-0"
         selectsRange
         startDate={formData.dateRange.checkIn}
         endDate={formData.dateRange.checkOut}
@@ -133,7 +135,7 @@ const AvailabilityForm = () => {
 
       <BaseButton
         type="submit"
-        className={`w-full bg-primary-orange text-white px-4 rounded hover:bg-secondary-orange transition-colors ${
+        className={`w-full bg-primary-orange text-white px-4 rounded hover:bg-secondary-orange transition-colors h-[81px] lg:w-fit ${
           readyToSubmit ? "" : "opacity-50 cursor-not-allowed"
         }`}
         onClick={handleSubmit}
