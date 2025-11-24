@@ -1,11 +1,24 @@
 interface BaseButtonProps {
+  type?: "button" | "submit" | "reset";
   onClick: () => void;
   children?: React.ReactNode;
+  disabled?: boolean;
   className?: string;
 }
 
-const BaseButton = ({ children, onClick, className }: BaseButtonProps) => (
-  <button onClick={onClick} className={className}>
+const BaseButton = ({
+  children,
+  type = "button",
+  onClick,
+  disabled = false,
+  className,
+}: BaseButtonProps) => (
+  <button
+    type={type}
+    onClick={onClick}
+    disabled={disabled}
+    className={`cursor-pointer disabled:cursor-not-allowed ${className}`}
+  >
     {children}
   </button>
 );
