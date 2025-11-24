@@ -11,7 +11,7 @@ type DateRange = {
 
 type FormData = {
   hotelName: string;
-  guestCount: number;
+  guestCount: GuestCount;
   rating: number;
   dateRange: DateRange;
 };
